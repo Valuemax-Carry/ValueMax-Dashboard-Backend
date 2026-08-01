@@ -44,6 +44,26 @@ const fetchProducts = async (req, res) => {
   }
 };
 
+const deleteProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ success: false, message: "Product id is required" });
+    }
+
+    const deleted = await Products.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    return res.status(200).json({ success: true, message: "Product deleted successfully" });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 const fetchProductsByCategory = async (req, res) => {
   try {
     const { slug } = req.params;
@@ -73,4 +93,4 @@ const fetchProductsByCategory = async (req, res) => {
   }
 };
 
-module.exports = { createProducts, fetchProducts, fetchProductsByCategory };
+module.exports = { createProducts, fetchProducts, fetchProductsByCategory, deleteProducts };
