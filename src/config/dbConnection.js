@@ -17,7 +17,7 @@ const dbConnection = () => {
         .connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 10000,
+            serverSelectionTimeoutMS: 100,
         })
         .then(() => {
             console.log("✅ MongoDB Connected");
