@@ -30,7 +30,6 @@ const createProducts = async (req, res) => {
   }
 };
 
-
 const fetchProducts = async (req, res) => {
   try {
     const allProducts = await Products.find().sort({ createdAt: -1 });
@@ -45,5 +44,40 @@ const fetchProducts = async (req, res) => {
   }
 };
 
+const fetchProductsByCategory = async (req, res) => {
+  try {
+    const { slug } = req.params;
 
-module.exports = { createProducts, fetchProducts };
+    if (!slug) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Category slug is required" });
+    }
+
+    const products = await Products.find({
+      productCategories: { $regex: new RegExp(`^${slug}$`, "i") },
+    }).sort({ createdAt: -1 });
+
+    if (!products || products.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No products found for this category" });
+    }
+
+    const formatted = products.map((p) => ({
+      _id: p._id,
+      productName: p.productName,
+      productCategories: p.productCategories,
+      productCompany: p.productCompany,
+      productImage: p.productImage?.data
+        ? `data:${p.productImage.contentType};base64,${p.productImage.data.toString("base64")}`
+        : null,
+    }));
+
+    return res.status(200).json({ success: true, products: formatted });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { createProducts, fetchProducts, fetchProductsByCategory };
