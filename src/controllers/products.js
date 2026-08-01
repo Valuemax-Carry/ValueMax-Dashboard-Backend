@@ -30,4 +30,20 @@ const createProducts = async (req, res) => {
   }
 };
 
-module.exports = { createProducts };
+
+const fetchProducts = async (req, res) => {
+  try {
+    const allProducts = await Products.find().sort({ createdAt: -1 });
+
+    if (!allProducts || allProducts.length === 0) {
+      return res.status(404).json({ success: false, message: "Products Not Found" });
+    }
+
+    return res.status(200).json({ success: true, allproducts: allProducts });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+
+module.exports = { createProducts, fetchProducts };
