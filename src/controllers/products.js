@@ -58,18 +58,11 @@ const fetchProductsByCategory = async (req, res) => {
       productCategories: { $regex: new RegExp(`^${slug}$`, "i") },
     }).sort({ createdAt: -1 });
 
-    if (!products || products.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No products found for this category" });
-    }
-
     const formatted = products.map((p) => ({
-      _id: p._id,
-      productName: p.productName,
-      productCategories: p.productCategories,
-      productCompany: p.productCompany,
-      productImage: p.productImage?.data
+      id: p._id,
+      name: p.productName,
+      company: p.productCompany,
+      img: p.productImage?.data
         ? `data:${p.productImage.contentType};base64,${p.productImage.data.toString("base64")}`
         : null,
     }));
