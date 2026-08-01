@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://admin-dashboard.valuemax.com.pk"],
+    origin: ["http://localhost:3000", "https://admin-dashboard.valuemax.com.pk"],
     credentials: true,
   }),
 );
