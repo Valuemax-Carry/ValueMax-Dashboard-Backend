@@ -13,3 +13,5 @@ const dbConnection = () => {
             console.error("MongoDB Error:", err.message);
         });
 };
+
+module.exports = dbConnection;
