@@ -4,7 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dbConnection = require("./src/config/dbConnection");
 const authRoutes = require("./src/routes/authRoutes");
-
+const productRoutes = require("./src/routes/productRoutes");
 
 dotenv.config();
 const app = express();
@@ -25,6 +25,7 @@ dbConnection();
 
 //Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 //Server Running
 app.listen(PORT, (err) => {
