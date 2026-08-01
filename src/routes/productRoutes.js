@@ -6,6 +6,6 @@ const upload = require("../middleware/upload");
 const {createProducts, fetchProducts} = require("../controllers/products");
 
 router.post("/create-product", limiter, upload.single("productImage"), createProducts);
-router.post("/all-products", fetchProducts)
+router.get("/all-products", fetchProducts)
 
 module.exports = router;
