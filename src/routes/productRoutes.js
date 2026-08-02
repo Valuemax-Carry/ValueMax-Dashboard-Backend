@@ -8,6 +8,6 @@ const {createProducts, fetchProducts, fetchProductsByCategory, deleteProducts} =
 router.post("/create-product",  authMiddleware, limiter, upload.single("productImage"), createProducts);
 router.get("/all-products", fetchProducts);
 router.get("/category/:slug", fetchProductsByCategory);
-router.delete("/delete-product/:id", limiter, deleteProducts);
+router.delete("/delete-product/:id", authMiddleware, limiter, deleteProducts);
 
 module.exports = router;
