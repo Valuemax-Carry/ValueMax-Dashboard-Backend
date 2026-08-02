@@ -3,7 +3,7 @@ const cloudinary = require("../config/cloudinary");
 
 const createProducts = async (req, res) => {
   try {
-    const { productName, productCategories, productCompany } = req.body;
+    const { productName, productCategories, productCompany, productPrice } = req.body;
 
     if (!productName || !productCategories || !productCompany || !req.file) {
       return res.status(400).json({ success: false, message: "Please fill all fields" });
@@ -13,6 +13,7 @@ const createProducts = async (req, res) => {
       productName,
       productCategories,
       productCompany,
+      productPrice,
       productImage: {
         url: req.file.path,        
         publicId: req.file.filename, 

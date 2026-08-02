@@ -17,6 +17,9 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    productPrice: {
+      type: Number,
+    },
     productImage: {
       url: { type: String, required: true },
       publicId: { type: String, required: true }, 
