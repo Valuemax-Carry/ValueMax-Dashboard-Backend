@@ -88,6 +88,7 @@ const fetchProductsByCategory = async (req, res) => {
       id: p._id,
       name: p.productName,
       company: p.productCompany,
+      price: p.productPrice,
       img: p.productImage?.url || null, 
     }));
 
